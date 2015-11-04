@@ -4,11 +4,11 @@ main: main.o libisentlib.a
 # et de-commenter la ligne de commande ci-apres :
 #	gcc -Wall exemple.o -o exemple -lm libisentlib.a -framework OpenGL -framework GLUT
 
-main.o: main.c  BmpLib.h imageIO.h 
+main.o: main.c  BmpLib.h imageIO.h OutilsLib.h
 	gcc -Wall -O2 -c main.c
 
 libisentlib.a: BmpLib.o OutilsLib.o imageIO.o
-	ar r libisentlib.a BmpLib.o OutilsLib.o 
+	ar r libisentlib.a BmpLib.o OutilsLib.o imageIO.o
 	ranlib libisentlib.a
 
 BmpLib.o: BmpLib.c BmpLib.h OutilsLib.h

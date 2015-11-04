@@ -3,6 +3,8 @@
 #include "OutilsLib.h"
 #include "BmpLib.h"
 #include <string.h>
+#include "imageIO.h"
+
 
 int main (int argc, char *argv[] ) {
 	DonneesImageRGB *image;
@@ -12,33 +14,45 @@ int main (int argc, char *argv[] ) {
     
     strcpy(nomFichier, argv[1]);
     strcat(nomFichier,".bmp");
-    
     printf("lecture\n");
-    image = lisBMPRGB(nomFichier);
-    short int **rouge=malloc(sizeof(short int)*image->largeurImage);
-    short int **vert=malloc(sizeof(short int)*image->largeurImage);
-    short int **bleu=malloc(sizeof(short int)*image->largeurImage);
+	image = lisBMPRGB(nomFichier);
+	
+    short int **rouge=malloc(sizeof(short int*)*image->hauteurImage);
+    short int **vert=malloc(sizeof(short int*)*image->hauteurImage);
+    short int **bleu=malloc(sizeof(short int*)*image->hauteurImage);
     
-    for(i=0; i<image->largeurImage; i++) {
-        *(rouge+i)=malloc(sizeof(int short)*image->hauteurImage);
-        *(vert+i)=malloc(sizeof(int short)*image->hauteurImage);
-        *(bleu+i)=malloc(sizeof(int short)*image->hauteurImage);
+    for(i=0; i<image->hauteurImage; i++) {
+        *(rouge+i)=malloc(sizeof(int short)*image->largeurImage);
+        *(vert+i)=malloc(sizeof(int short)*image->largeurImage);
+        *(bleu+i)=malloc(sizeof(int short)*image->largeurImage);
 	}
     printf("j'ai mon fichier\n");
     if (image == NULL)
         return 0;
-	printf("La taille de l'image est %d de hauteur par %d de largeur mdr lol xD\n Maillot on te baise \n", image->hauteurImage, image->largeurImage);
-//	printf("%d, %d, %d\n", sizeof(rouge), sizeof(vert), sizeof(bleu));
+	printf("La taille de l'image est %d de hauteur par %d de largeur mdr lol xD\n", image->hauteurImage, image->largeurImage);
+	cree3matrices(image,rouge, vert, bleu);  
+	printf("%d", *(*(rouge+4)+4));
+	matricesVersImage(image,rouge, vert, bleu);
+	ecrisBMPRGB_Dans(image, "copieFichier.bmp");
 	
-	for(i=0; i<image->largeurImage; i++) {
-		free(rouge[i]);
-//		free(*(vert+i));
-	//	free(*(bleu+i));
+	
+	for(i=0; i<image->hauteurImage; i++) {
+		free(*(rouge+i));
+		*(rouge+i)=NULL;
+		free(*(vert+i));
+		*(vert+i)=NULL;
+		free(*(bleu+i));
+		*(bleu+i)=NULL;
 	}
 	free(rouge);
-//	free(vert);
-//	free(bleu);
-//	libereDonneesImageRGB(image);
+	rouge=NULL;
+	free(vert);
+	vert=NULL;
+	free(bleu);
+	bleu=NULL;
+	libereDonneesImageRGB(&image);
+if(rouge==NULL)
+printf("rouge est null");
 	
 	return 0;
 	
