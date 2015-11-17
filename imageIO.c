@@ -4,14 +4,14 @@
 #include "BmpLib.h"
 #include "imageIO.h"
 
-void cree3matrices(DonneesImageRGB *image, short int **rouge,
-                   short int **vert, short int **bleu)
+void cree3matrices(DonneesImageRGB *image, short int rouge[NBLIG][NBCOL],
+                   short int vert[NBLIG][NBCOL], short int bleu[NBLIG][NBCOL])
 // convertit DonneesImageRGB *image en trois matrices rouge, vert, bleu
 {
     int i,j,k=0;
 
-    for (i=0; i<image->hauteurImage; i++)
-        for (j=0; j<image->largeurImage; j++)
+    for (i=0; i<NBLIG; i++)
+        for (j=0; j<NBCOL; j++)
         {
             bleu[i][j]=image->donneesRGB[k];
             k++;
@@ -22,15 +22,15 @@ void cree3matrices(DonneesImageRGB *image, short int **rouge,
         }
 }
 
-void matricesVersImage(DonneesImageRGB *image, short int **rouge,
-                       short int **vert, short int **bleu)
+void matricesVersImage(DonneesImageRGB *image, short int rouge[NBLIG][NBCOL],
+                       short int vert[NBLIG][NBCOL], short int bleu[NBLIG][NBCOL])
 // convertit trois matrices rouge, vert, bleu en DonneesImageRGB *image
 // attention : image doit être correctement alloue pour etre utilise
 {
     int i,j,k=0;
 
-    for (i=0; i<image->hauteurImage; i++)
-        for (j=0; j<image->largeurImage; j++)
+    for (i=0; i<NBLIG; i++)
+        for (j=0; j<NBCOL; j++)
         {
             image->donneesRGB[k]=bleu[i][j];
             k++;

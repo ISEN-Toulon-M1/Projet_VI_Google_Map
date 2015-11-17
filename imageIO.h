@@ -2,12 +2,12 @@
 #define NBCOL 300
 
 
-void cree3matrices(DonneesImageRGB *image, short int **rouge,
-                   short int **vert, short int **bleu);
+void cree3matrices(DonneesImageRGB *image, short int rouge[NBLIG][NBCOL],
+                   short int vert[NBLIG][NBCOL], short int bleu[NBLIG][NBCOL]);
 // convertit DonneesImageRGB *image en trois matrices rouge, vert, bleu
 
-void matricesVersImage(DonneesImageRGB *image, short int **rouge,
-                       short int **vert, short int **bleu);
+void matricesVersImage(DonneesImageRGB *image, short int rouge[NBLIG][NBCOL],
+                       short int vert[NBLIG][NBCOL], short int bleu[NBLIG][NBCOL]);
 // convertit trois matrices rouge, vert, bleu en DonneesImageRGB *image
 // attention : image doit être correctement alloue pour etre utilise
                        
